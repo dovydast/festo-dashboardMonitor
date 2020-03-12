@@ -24,7 +24,7 @@ public class SeleniumLoginTest {
     //Testuojama login ir logout su egzistuojanciu naudotoju
     @Test(priority = 1)
     public void testLoginLogoutExistingUser(){
-        Selenium.MonitoringDashboardLogin("login@mail.com","asd123");
+        Selenium.MonitoringDashboardLogin("loginmail@gmail.com","Asd123@");
         Selenium.NavigateLogout();
     }
     //Testuojama login su egzistuojanciu naudotoju ivedant bloga slaptazodi
@@ -32,7 +32,7 @@ public class SeleniumLoginTest {
     public void testLoginExistingUserWithWrongPassword(){
         Selenium.OpenNewTab(1,"http://developdashboard3.azurewebsites.net/login");
        // Selenium.OpenNewTab(1,"http://dashboardfront.azurewebsites.net/login");
-        Selenium.MonitoringDashboardLogin("login@mail.com","123456");
+        Selenium.MonitoringDashboardLogin("login@gmail.com","Asd123@");
         Assert.assertEquals(Selenium.userIncorrectEmailOrPassword(),"Incorrect email or password","Missing Validation message");
         System.out.println(Selenium.userIncorrectEmailOrPassword());
     }
@@ -90,7 +90,7 @@ public class SeleniumLoginTest {
     public void testLoginUserIsDisabled(){
        Selenium.OpenNewTab(7,"http://developdashboard3.azurewebsites.net/login");
         //Selenium.OpenNewTab(7,"http://dashboardfront.azurewebsites.net/login");
-        Selenium.MonitoringDashboardLogin("login2@mail.com","asd123");
+        Selenium.MonitoringDashboardLogin("login2@mail.com","Asd123@");
         Assert.assertEquals(Selenium.UserDisabledErrorMessage(),"User disabled","Missing Validation message");
         System.out.println(Selenium.UserDisabledErrorMessage());
     }

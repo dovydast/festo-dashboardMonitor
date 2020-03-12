@@ -23,15 +23,15 @@ public class SeleniumUsersTest {
 // Testuojama user add
 @Test(priority = 1)
 public void testUserAddPositiveValues(){
-    Selenium.MonitoringDashboardLogin("login@mail.com","asd123");
-    Selenium.AddNewUser("test@aktyvus.lt","Jonas","Jonaitis","aktyvus","aktyvus");
+    Selenium.MonitoringDashboardLogin("login@mail.com","Asd123@");
+    Selenium.AddNewUser("test@aktyvus.lt","Jonas","Jonaitis","Asd123@","Asd123@");
 }
 
 
 @Test(priority = 2)
 public void testEditRecentlyCreatedUser(){
         Selenium.OpenNewTab(1,"http://developdashboard3.azurewebsites.net/users");
-        Selenium.EditRecentlyCreatedUser("NameTest","SurnameTest","testing123","testing123");
+        Selenium.EditRecentlyCreatedUser("NameTest","SurnameTest","Testing123@","Testing123@");
 }
 //Testuojam user delete
 
@@ -43,11 +43,11 @@ public void testUserDelete(){
 
 }
 
-/*
+
 @AfterTest
     public void closeTest(){
         Selenium.quit();
 }
- */
+ 
 
 }
