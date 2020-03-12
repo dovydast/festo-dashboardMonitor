@@ -1,11 +1,14 @@
-import com.sun.jdi.BooleanValue;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.http.util.Asserts;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -14,23 +17,26 @@ public class Selenium {
     static WebDriver BrowserDriver;
 
 
-
     public static void main(String[] args){
 
         System.out.println("Selenium");
-    }
 
+    }
+/*
     static public void setupChrome(){
-        //System.setProperty("webdriver.chrome.driver","drivers\\chromedriver.exe");
         WebDriverManager.chromedriver().setup();
         BrowserDriver = new ChromeDriver();
         BrowserDriver.get("http://developdashboard.azurewebsites.net/login");
     }
+    */
+
+
 
     static public void setupFireFox(){
             WebDriverManager.firefoxdriver().setup();
             BrowserDriver = new FirefoxDriver();
-            BrowserDriver.get("http://developdashboard.azurewebsites.net/login");
+            BrowserDriver.get("http://developdashboard3.azurewebsites.net/login");
+
     }
 
 
@@ -83,19 +89,22 @@ public class Selenium {
         logoutButton.click();
     }
 
+
     static public void AddNewUser(String email, String name, String surname, String password, String repeatPassword){
+
         //Click burger
         waitForElementByClassName("menuIcon");
         WebElement burgerMenu = BrowserDriver.findElement(By.className("menuIcon"));
         burgerMenu.click();
+
         //Click users
         waitForElementByXpath("//a[@href='/users']//button[@class=\"buttonDesign\"]");
         WebElement users = BrowserDriver.findElement(By.xpath("//a[@href='/users']//button[@class=\"buttonDesign\"]"));
         users.click();
-
+        BrowserDriver.navigate().refresh();
         //Click add new user
-        waitForElementByXpath("//p[@class='text-right pt-3']//button[@class='link-button']");
-        WebElement addUserButton = BrowserDriver.findElement((By.xpath("//p[@class='text-right pt-3']//button[@class='link-button']")));
+        waitForElementByXpath("//div[@class='addButton d-flex justify-content-between']/button[text() = 'Add new user']");
+        WebElement addUserButton = BrowserDriver.findElement((By.xpath("//div[@class='addButton d-flex justify-content-between']/button[text() = 'Add new user']")));
         addUserButton.click();
 
         //Enter email
@@ -135,6 +144,85 @@ public class Selenium {
         submitAddForm.click();
     }
 
+    static public void EditRecentlyCreatedUser(String name,String surname, String password, String repeatPassword){
+        //Click Edit recently created user
+    	JavascriptExecutor js = (JavascriptExecutor) BrowserDriver;
+        waitForElementByXpath("//tr[td[div[text() = \"test@aktyvus.lt\"]]]/td/button[text() = 'edit']");
+        WebElement editUser = BrowserDriver.findElement(By.xpath("//tr[td[div[text() = 'test@aktyvus.lt']]]/td/button[text() = 'edit']"));
+      //This will scroll the page till the element is found		
+        js.executeScript("arguments[0].scrollIntoView();", editUser);
+        editUser.click();
+
+
+        //Enter name
+        waitForElementByName("name");
+        WebElement enterName = BrowserDriver.findElement(By.name("name"));
+        enterName.clear();
+        enterName.sendKeys(name);
+
+        //Enter surname
+        waitForElementByName("surname");
+        WebElement enterSurname = BrowserDriver.findElement(By.name("surname"));
+        enterSurname.clear();
+        enterSurname.sendKeys(surname);
+
+
+        //Entering password
+        //Enter Password
+        waitForElementByName("password0");
+        WebElement writePassword0 = BrowserDriver.findElement(By.name("password0"));
+        writePassword0.sendKeys(password);
+
+        //Enter repeatPassword
+        waitForElementByName("password");
+        WebElement writePassword = BrowserDriver.findElement(By.name("password"));
+        writePassword.sendKeys(repeatPassword);
+
+        //Enter Submit form
+        waitForElementByXpath("//button[@type='submit']");
+        WebElement submitAddForm = BrowserDriver.findElement((By.xpath("//button[@type='submit']")));
+        submitAddForm.click();
+
+    }
+
+    static public void EditExistingUser(String name,String surname, String password, String repeatPassword){
+        //Click Edit recently created user
+        waitForElementByXpath("//tr[td[div[text() = \"login@mail.com\"]]]/td/button[text() = 'edit']");
+        WebElement deleteUser = BrowserDriver.findElement(By.xpath("//tr[td[div[text() = 'login@mail.com']]]/td/button[text() = 'edit']"));
+        deleteUser.click();
+
+
+        //Enter name
+        waitForElementByName("name");
+        WebElement enterName = BrowserDriver.findElement(By.name("name"));
+        enterName.clear();
+        enterName.sendKeys(name);
+
+        //Enter surname
+        waitForElementByName("surname");
+        WebElement enterSurname = BrowserDriver.findElement(By.name("surname"));
+        enterSurname.clear();
+        enterSurname.sendKeys(surname);
+
+
+        //Entering password
+        //Enter Password
+        waitForElementByName("password0");
+        WebElement writePassword0 = BrowserDriver.findElement(By.name("password0"));
+        writePassword0.sendKeys(password);
+
+        //Enter repeatPassword
+        waitForElementByName("password");
+        WebElement writePassword = BrowserDriver.findElement(By.name("password"));
+        writePassword.sendKeys(repeatPassword);
+
+        //Enter Submit form
+        waitForElementByXpath("//button[@type='submit']");
+        WebElement submitAddForm = BrowserDriver.findElement((By.xpath("//button[@type='submit']")));
+        submitAddForm.click();
+
+    }
+
     static public void DeleteUser(){
         //Click burger
         waitForElementByClassName("menuIcon");
@@ -143,12 +231,64 @@ public class Selenium {
         //Click users
         waitForElementByXpath("//a[@href='/users']//button[@class=\"buttonDesign\"]");
         WebElement users = BrowserDriver.findElement(By.xpath("//a[@href='/users']//button[@class=\"buttonDesign\"]"));
+      
         users.click();
         //Click delete
-        waitForElementByXpath("");
-        WebElement deleteUser = BrowserDriver.findElement(By.xpath(""));
+        JavascriptExecutor js = (JavascriptExecutor) BrowserDriver;
+        waitForElementByXpath("//tr[td[div[text() = 'test@aktyvus.lt']]]/td/button[text() = 'delete']");
+        WebElement deleteUser = BrowserDriver.findElement(By.xpath("//tr[td[div[text() = 'test@aktyvus.lt']]]/td/button[text() = 'delete']"));
+        js.executeScript("arguments[0].scrollIntoView();", deleteUser);
         deleteUser.click();
+        //Click Are u sure to delete?
+        waitForElementByXpath("//div[@class='ReactModal__Content ReactModal__Content--after-open']//button[@id='delete-user']");
+        WebElement confirmDelete = BrowserDriver.findElement(By.xpath("//div[@class='ReactModal__Content ReactModal__Content--after-open']//button[@id='delete-user']"));
+        confirmDelete.click();
     }
+
+    static public String javascriptError(){
+        waitForEelementByXpathVisibility("//div[@style='font-size: 2em; font-family: sans-serif; color: rgb(206, 17, 38); white-space: pre-wrap; margin: 0px 2rem 0.75rem 0px; flex: 0 0 auto; max-height: 50%; overflow: auto;']");
+    String errorMsg = BrowserDriver.findElement(By.xpath("//div[@style='font-size: 2em; font-family: sans-serif; color: rgb(206, 17, 38); white-space: pre-wrap; margin: 0px 2rem 0.75rem 0px; flex: 0 0 auto; max-height: 50%; overflow: auto;']")).getText();
+    return errorMsg;
+    }
+
+    static public String DeleteUserValidationMessage(){
+        waitForEelementByXpathVisibility("//p[@class='text-danger warning-text'][text()='Email already in use']");
+        String  errorMsg = BrowserDriver.findElement(By.xpath("//p[@class='text-danger warning-text'][text()='Email already in use']")).getText();
+        return  errorMsg;
+    }
+
+    static public String UserDisabledErrorMessage(){
+        waitForEelementByXpathVisibility("//p[span[text()='User disabled']]");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[span[text()='User disabled']]")).getText();
+        return errorMsg;
+    }
+
+    static public String userEmailIncorrectFormat(){
+        waitForEelementByXpathVisibility("//p[@id='er']");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[@id='er']")).getText();
+        return errorMsg;
+    }
+
+    static public String userIncorrectEmailOrPassword(){
+        waitForEelementByXpathVisibility("//p[span[text()='Incorrect email or password']]");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[span[text()='Incorrect email or password']]")).getText();
+        return errorMsg;
+    }
+
+    static public String userWrongEmailOrPassword(){
+        waitForEelementByXpathVisibility("//p[text()='Incorrect email or password']");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[text()='Incorrect email or password']")).getText();
+        return errorMsg;
+    }
+    static public String LatinLetters(){
+        waitForEelementByXpathVisibility("//p[text()='Only latin letters and numbers']");
+        String errorMsg = BrowserDriver.findElement(By.xpath("//p[text()='Only latin letters and numbers']")).getText();
+        return errorMsg;
+    }
+
+
+    //UserEdit
+    //"//tr[td[text() = 'UserDeleteThis@mail.com']]/td/button"
 
 
     //ElementsToBeClicked
