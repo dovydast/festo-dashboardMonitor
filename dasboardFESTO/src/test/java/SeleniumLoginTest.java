@@ -24,7 +24,7 @@ public class SeleniumLoginTest {
     //Testuojama login ir logout su egzistuojanciu naudotoju
     @Test(priority = 1)
     public void testLoginLogoutExistingUser(){
-        Selenium.MonitoringDashboardLogin("loginmail@gmail.com","Asd123@");
+        Selenium.MonitoringDashboardLogin("login@mail.com","Asd123@");
         Selenium.NavigateLogout();
     }
     //Testuojama login su egzistuojanciu naudotoju ivedant bloga slaptazodi

@@ -24,7 +24,9 @@ public class SeleniumUsersTest {
 @Test(priority = 1)
 public void testUserAddPositiveValues(){
     Selenium.MonitoringDashboardLogin("login@mail.com","Asd123@");
+    System.out.println("logged in");
     Selenium.AddNewUser("test@aktyvus.lt","Jonas","Jonaitis","Asd123@","Asd123@");
+    System.out.println("user created");
 }
 
 
@@ -32,6 +34,7 @@ public void testUserAddPositiveValues(){
 public void testEditRecentlyCreatedUser(){
         Selenium.OpenNewTab(1,"http://developdashboard3.azurewebsites.net/users");
         Selenium.EditRecentlyCreatedUser("NameTest","SurnameTest","Testing123@","Testing123@");
+        System.out.println("user edited");
 }
 //Testuojam user delete
 
@@ -39,7 +42,9 @@ public void testEditRecentlyCreatedUser(){
 public void testUserDelete(){
     Selenium.OpenNewTab(2,"http://developdashboard3.azurewebsites.net");
     Selenium.DeleteUser();
+    System.out.println("user deleted");
     Selenium.NavigateLogout();
+    System.out.println("logged out");
 
 }
 
