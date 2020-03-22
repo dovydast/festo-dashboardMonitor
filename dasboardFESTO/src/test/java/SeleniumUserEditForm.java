@@ -14,7 +14,7 @@ public class SeleniumUserEditForm {
     @BeforeTest
     public void testSetupFirefox(){
         Selenium.setupFireFox();
-        Selenium.MonitoringDashboardLogin("login@mail.com","asd123");
+        Selenium.MonitoringDashboardLogin("login@mail.com","Asd123@");
     }
 
 
@@ -22,7 +22,7 @@ public class SeleniumUserEditForm {
     public void testEditUserNameSurnameLithuanianLetters() {
         String errorMsg = "Only latin letters and numbers";
         Selenium.OpenNewTab(1, "http://developdashboard3.azurewebsites.net/users");
-        Selenium.EditExistingUser("Ričardas", "Mačiulis", "asd123", "asd123");
+        Selenium.EditExistingUser("Ričardas", "Mačiulis", "Asd123@", "Asd123@");
         Assert.assertEquals(Selenium.LatinLetters(), "Only latin letters and numbers");
         System.out.println(Selenium.LatinLetters());
 
@@ -33,7 +33,7 @@ public class SeleniumUserEditForm {
     @Test(priority = 2)
     public void testEditUserNameSurnameFields(){
         Selenium.OpenNewTab(2,"http://developdashboard3.azurewebsites.net/users");
-        Selenium.EditExistingUser("SeleniumNameTesting","SeleniumSurnameTesting","asd123","asd123");
+        Selenium.EditExistingUser("SeleniumNameTesting","SeleniumSurnameTesting","Asd123@","Asd123@");
     }
 
 
